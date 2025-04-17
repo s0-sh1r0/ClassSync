@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Class" representedClassName="Class" syncable="YES" codeGenerationType="class">
+        <attribute name="dayOfWeek" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="period" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="room" optional="YES" attributeType="String"/>
+        <attribute name="subject" optional="YES" attributeType="String"/>
+        <attribute name="timetable" optional="YES" attributeType="String"/>
+        <relationship name="timetableRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Timetable" inverseName="classRelationship" inverseEntity="Timetable"/>
+    </entity>
+    <entity name="Timetable" representedClassName="Timetable" syncable="YES" codeGenerationType="class">
+        <attribute name="classes" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isOnSaturday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isOnSunday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="maximumNumberOfLessons" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="classRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Class" inverseName="timetableRelationship" inverseEntity="Class"/>
+    </entity>
+</model>

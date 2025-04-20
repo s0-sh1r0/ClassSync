@@ -40,42 +40,47 @@ struct TableEditView: View {
                             )
                         }
 
-                        
-                        HStack {
-                            Image(systemName: "calendar")
-                            Text("土日の授業")
-                            Spacer()
+                        NavigationLink(destination: TableWeekendClassView()) {
+                            HStack {
+                                Image(systemName: "calendar")
+                                Text("土日の授業")
+                                Spacer()
+                            }
+                            .padding(20)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
                         }
-                        .padding(20)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
                         
-                        HStack {
-                            Image(systemName: "list.number")
-                            Text("1日の最大授業数")
-                            Spacer()
+                        NavigationLink(destination: TableClassNumberView()) {
+                            HStack {
+                                Image(systemName: "list.number")
+                                Text("1日の最大授業数")
+                                Spacer()
+                            }
+                            .padding(20)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
                         }
-                        .padding(20)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
                         
-                        HStack {
-                            Image(systemName: "watch.analog")
-                            Text("授業時刻を編集")
-                            Spacer()
+                        NavigationLink(destination: TableTimeEditView()) {
+                            HStack {
+                                Image(systemName: "watch.analog")
+                                Text("授業時刻を編集")
+                                Spacer()
+                            }
+                            .padding(20)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
                         }
-                        .padding(20)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
                         
                         HStack {
                             Image(systemName: "trash")

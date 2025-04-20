@@ -1,8 +1,40 @@
 import SwiftUI
 
 struct TableWeekendClassView: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ZStack {
+                Background()
+                
+                VStack {
+                    ZStack {
+                        HStack {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Image(systemName: "xmark")
+                                    .font(.title2)
+                            }
+                            Spacer()
+                        }
+                        
+                        Text("時間割名を編集")
+                            .font(.title2)
+                    }
+                    
+                    Spacer()
+                    
+                    ConfilmButton()
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .foregroundColor(.white)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

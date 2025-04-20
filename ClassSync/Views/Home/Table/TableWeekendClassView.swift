@@ -1,10 +1,3 @@
-//
-//  TableWeekendClassView.swift
-//  ClassSync
-//
-//  Created by 牛田壮志郎 on 2025/04/20.
-//
-
 import SwiftUI
 
 struct TableWeekendClassView: View {

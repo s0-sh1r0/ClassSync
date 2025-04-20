@@ -50,11 +50,7 @@ struct TableNameEditView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: TopView()) {
-                        Text("確定")
-                            .font(.title3)
-                            .custom3DBackground(width: 350, height: 50, cornerRadius: 10)
-                    }
+                    ConfilmButton()
                     
                     Spacer()
                 }

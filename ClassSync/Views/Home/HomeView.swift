@@ -92,18 +92,10 @@ struct HomeView: View {
                                             let period = periodIndex + 1
                                             
                                             Button {
-                                                print("🔴 DayOfWeek / Period: \(day) / \(period)限")
-                                                print("🔴 selectedDayOfWeek / selectedPeriod: \(selectedDayOfWeek) / \(selectedPeriod)限")
-                                                
                                                 selectedDayOfWeek = day
                                                 selectedPeriod = period
                                                 
-                                                print("🟠 DayOfWeek / Period: \(day) / \(period)限")
-                                                print("🟠 selectedDayOfWeek / selectedPeriod: \(selectedDayOfWeek) / \(selectedPeriod)限")
-                                                
                                                 isShowingCRView = true
-                                                print("🟢 DayOfWeek / Period: \(day) / \(period)限")
-                                                print("🟢 selectedDayOfWeek / selectedPeriod: \(selectedDayOfWeek) / \(selectedPeriod)限")
                                             } label: {
                                                 Rectangle()
                                                     .fill(Color.white.opacity(0.5))

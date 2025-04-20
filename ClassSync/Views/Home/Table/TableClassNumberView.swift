@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TableWeekendClassView: View {
+struct TableClassNumberView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -20,9 +20,10 @@ struct TableWeekendClassView: View {
                             Spacer()
                         }
                         
-                        Text("土日の授業")
+                        Text("1日の最大授業数")
                             .font(.title2)
                     }
+                    
                     
                     Spacer()
                     
@@ -39,5 +40,5 @@ struct TableWeekendClassView: View {
 }
 
 #Preview {
-    TableWeekendClassView()
+    TableClassNumberView()
 }

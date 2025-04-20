@@ -4,6 +4,9 @@ struct TableEditView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @State private var showAlert = false
+    @State private var isDeleted = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -82,17 +85,30 @@ struct TableEditView: View {
                             )
                         }
                         
-                        HStack {
-                            Image(systemName: "trash")
-                            Text("この時間割を削除")
-                            Spacer()
+                        Button(role: .destructive) {
+                            showAlert = true
+                        } label: {
+                            HStack {
+                                Image(systemName: "trash")
+                                Text("この時間割を削除")
+                                Spacer()
+                            }
+                            .padding(20)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
                         }
-                        .padding(20)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
+                        .alert("本当に削除しますか？", isPresented: $showAlert) {
+                            Button("削除", role: .destructive) {
+                                // 削除処理
+                                isDeleted = true
+                            }
+                            Button("キャンセル", role: .cancel) { }
+                        } message: {
+                            Text("この操作は取り消せません。")
+                        }
                     }
                     .font(.title3)
                     

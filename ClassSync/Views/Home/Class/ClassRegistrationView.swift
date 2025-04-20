@@ -14,6 +14,14 @@ struct ClassRegistrationView: View {
     @State var inputTeacherName = ""
     @State var inputRoom = ""
     
+    // 10色を定義（上段・下段で5色ずつ）
+    let classColors: [Color] = [
+        .red, .orange, .yellow, .green, .blue,
+        .indigo, .purple, .pink, .gray, .teal
+    ]
+
+    @State private var selectedColorIndex: Int = 0
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -93,6 +101,27 @@ struct ClassRegistrationView: View {
                     }
                     .padding(.top, 10)
                     
+                    VStack(spacing: 14) {
+                        Text("授業カラーを選択")
+                            .foregroundColor(.white)
+                            .font(.headline)
+
+                        // 上段
+                        HStack(spacing: 16) {
+                            ForEach(0..<5) { index in
+                                colorCircle(index: index)
+                            }
+                        }
+
+                        // 下段
+                        HStack(spacing: 16) {
+                            ForEach(5..<10) { index in
+                                colorCircle(index: index)
+                            }
+                        }
+                    }
+                    .padding(8)
+                    
                     ConfilmButton()
                     
                     Spacer()
@@ -101,6 +130,20 @@ struct ClassRegistrationView: View {
                 .foregroundColor(.white)
             }
         }
+    }
+    
+    @ViewBuilder
+    func colorCircle(index: Int) -> some View {
+        Circle()
+            .fill(classColors[index])
+            .frame(width: 30, height: 30)
+            .overlay(
+                Circle()
+                    .stroke(Color.white, lineWidth: selectedColorIndex == index ? 3 : 0)
+            )
+            .onTapGesture {
+                selectedColorIndex = index
+            }
     }
 }
 

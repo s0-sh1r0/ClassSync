@@ -36,18 +36,27 @@ struct TableRegistrationView: View {
                         .font(.title3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 10)
-                    TextField("新しい時間割", text: $name)
-                        .padding(8) // ← 余白を追加
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.white, lineWidth: 1)
-                        )
-                        .focused($isFocusedKeyBoard)
-                        .onAppear() {
-                            DispatchQueue.main.async {
-                                isFocusedKeyBoard = true
-                            }
+                    
+                    ZStack(alignment : .leading) {
+                        if name.isEmpty {
+                            Text("新しい時間割")
+                                .padding(.leading, 10)
+                                .frame(maxWidth: .infinity,  alignment: .leading)
+                                .foregroundColor(.white.opacity(0.7))
                         }
+                        TextField("", text: $name)
+                            .padding(8) // ← 余白を追加
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(Color.white, lineWidth: 1)
+                            )
+                            .focused($isFocusedKeyBoard)
+                            .onAppear() {
+                                DispatchQueue.main.async {
+                                    isFocusedKeyBoard = true
+                                }
+                            }
+                    }
                     
                     HStack(spacing: 15) {
                         Text("土")

@@ -4,45 +4,116 @@ struct ClassRegistrationView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @FocusState private var isFocusedKeyBoard: Bool
+    
     let subject: String?
-    let dayOfWeek: String
-    let period: Int
+    @Binding var dayOfWeek: String
+    @Binding var period: Int
+    
+    @State var inputSubject = ""
+    @State var inputTeacherName = ""
+    @State var inputRoom = ""
     
     var body: some View {
-        ZStack {
-//            Background()
-            Color.blue
-                .ignoresSafeArea()
-            
-            VStack {
-                ZStack {
-                    HStack {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.title2)
+        NavigationStack {
+            ZStack {
+                Background()
+                
+                VStack {
+                    ZStack {
+                        HStack {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Image(systemName: "xmark")
+                                    .font(.title2)
+                            }
+                            Spacer()
                         }
-                        Spacer()
+                        
+                        Text("授業を登録")
+                            .font(.title2)
+                    }
+                    Text("\(dayOfWeek)曜日の\(period)限目")
+                        .font(.title3)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 10)
+                    
+                    VStack(spacing: 15) {
+                        ZStack {
+                            if inputSubject.isEmpty {
+                                Text("科目名を入力")
+                                    .padding(.leading, 10)
+                                    .frame(maxWidth: .infinity,  alignment: .leading)
+                                    .foregroundColor(.white.opacity(0.7))
+                            }
+                            TextField("", text: $inputSubject)
+                                .padding(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.white, lineWidth: 1)
+                                )
+                                .focused($isFocusedKeyBoard)
+                                .onAppear() {
+                                    DispatchQueue.main.async {
+                                        isFocusedKeyBoard = true
+                                    }
+                                }
+                        }
+                        
+                        ZStack {
+                            if inputTeacherName.isEmpty {
+                                Text("教員名を入力")
+                                    .padding(.leading, 10)
+                                    .frame(maxWidth: .infinity,  alignment: .leading)
+                                    .foregroundColor(.white.opacity(0.7))
+                            }
+                            TextField("", text: $inputTeacherName)
+                                .padding(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.white, lineWidth: 1)
+                                )
+                        }
+                        
+                        ZStack {
+                            if inputRoom.isEmpty {
+                                Text("教室名を入力")
+                                    .padding(.leading, 10)
+                                    .frame(maxWidth: .infinity,  alignment: .leading)
+                                    .foregroundColor(.white.opacity(0.7))
+                            }
+                            TextField("", text: $inputRoom)
+                                .padding(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.white, lineWidth: 1)
+                                )
+                        }
+                    }
+                    .padding(.top, 10)
+                    
+
+                    NavigationLink(destination: TopView()) {
+                        Text("確定")
+                            .font(.title3)
+                            .custom3DBackground(width: 350, height: 50, cornerRadius: 10)
                     }
                     
-                    Text("時間を登録")
-                        .font(.title2)
+                    Spacer()
                 }
-                Text("\(dayOfWeek)の\(period)限")
-                Text("科目名を入力")
-                Text("教員を入力")
-                Text("教室を入力")
-                Text("確定")
-                
-                Spacer()
+                .padding(.horizontal)
+                .foregroundColor(.white)
             }
-            .padding(.horizontal)
-            .foregroundColor(.white)
         }
     }
 }
 
 #Preview {
-    ClassRegistrationView(subject: nil, dayOfWeek: "月", period: 2)
+    ClassRegistrationView(
+        subject: nil,
+        dayOfWeek: .constant("月"),
+        period: .constant(2)
+    )
 }
+

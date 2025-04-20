@@ -20,15 +20,72 @@ struct TableEditView: View {
                         Spacer()
                     }
                     
-                    Text("時間割名")
+                    Text("時間割編集")
                         .font(.title2)
                 }
                 
-                Text("時間割名編集")
-                Text("土日の授業")
-                Text("1日の最大授業数")
-                Text("授業時刻を編集")
-                Text("この時間割を削除")
+                VStack(spacing: 20) {
+                    HStack {
+                        Image(systemName: "highlighter")
+                        Text("時間割名編集")
+                        Spacer()
+                    }
+                    .padding(20)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    
+                    HStack {
+                        Image(systemName: "calendar")
+                        Text("土日の授業")
+                        Spacer()
+                    }
+                    .padding(20)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    
+                    HStack {
+                        Image(systemName: "list.number")
+                        Text("1日の最大授業数")
+                        Spacer()
+                    }
+                    .padding(20)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    
+                    HStack {
+                        Image(systemName: "watch.analog")
+                        Text("授業時刻を編集")
+                        Spacer()
+                    }
+                    .padding(20)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    
+                    HStack {
+                        Image(systemName: "trash")
+                        Text("この時間割を削除")
+                        Spacer()
+                    }
+                    .padding(20)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                }
+                .font(.title3)
                 
                 Spacer()
             }

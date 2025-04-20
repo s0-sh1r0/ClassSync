@@ -6,6 +6,7 @@ struct TableEditView: View {
     
     @State private var showAlert = false
     @State private var isDeleted = false
+    @State private var navigateToTopView = false
     
     var body: some View {
         NavigationStack {
@@ -85,29 +86,35 @@ struct TableEditView: View {
                             )
                         }
                         
-                        Button(role: .destructive) {
-                            showAlert = true
-                        } label: {
-                            HStack {
-                                Image(systemName: "trash")
-                                Text("この時間割を削除")
-                                Spacer()
+                        VStack {
+                            Button(role: .destructive) {
+                                showAlert = true
+                            } label: {
+                                HStack {
+                                    Image(systemName: "trash")
+                                    Text("この時間割を削除")
+                                    Spacer()
+                                }
+                                .padding(20)
+                                .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.white, lineWidth: 2)
+                                )
                             }
-                            .padding(20)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.white, lineWidth: 2)
-                            )
+                            .alert("本当に削除しますか？", isPresented: $showAlert) {
+                                Button("削除", role: .destructive) {
+                                    // 削除処理
+                                    isDeleted = true
+                                    navigateToTopView = true
+                                }
+                                Button("キャンセル", role: .cancel) { }
+                            } message: {
+                                Text("この操作は取り消せません。")
+                            }
                         }
-                        .alert("本当に削除しますか？", isPresented: $showAlert) {
-                            Button("削除", role: .destructive) {
-                                // 削除処理
-                                isDeleted = true
-                            }
-                            Button("キャンセル", role: .cancel) { }
-                        } message: {
-                            Text("この操作は取り消せません。")
+                        .navigationDestination(isPresented: $navigateToTopView) {
+                            TopView()
                         }
                     }
                     .font(.title3)

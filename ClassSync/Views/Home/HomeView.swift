@@ -3,10 +3,15 @@ import SwiftUI
 struct HomeView: View {
 
     @State private var isShowingTEView: Bool = false // TEView = TableEditView
-    @State private var isShowingCRView: Bool = false //CRView = ClassRegistrationView
+    @State private var isShowingCRView: Bool = false // CRView = ClassRegistrationView
+    @State private var isShowingTRView: Bool = false // TRView = TableRegistrationView
     
     @State private var selectedDayOfWeek: String = ""
     @State private var selectedPeriod: Int = 1
+    
+    @State private var isShowingDialog = false
+    @State private var selectedSchedule = "時間割A"
+    @State private var schedules = ["時間割A", "時間割B"]
     
     var body: some View {
         let weekdays = ["月", "火", "水", "木", "金"]
@@ -34,13 +39,16 @@ struct HomeView: View {
                             Spacer()
                             
                             HStack(spacing: 0) {
-                                Text("時間割")
+                                Text(selectedSchedule)
                                     .bold()
                                     .font(.title)
                                     .foregroundStyle(Color.white)
                                 Image(systemName: "chevron.down")
                                     .font(.title)
                                     .foregroundStyle(Color.white.opacity(0.7))
+                            }
+                            .onTapGesture {
+                                isShowingDialog.toggle()
                             }
                             
                             Spacer()
@@ -112,6 +120,23 @@ struct HomeView: View {
                     }
                     .frame(width: geometry.size.width * 0.9)
                     .padding(.horizontal, geometry.size.width * 0.05)
+                    .confirmationDialog("表示する時間割を選択", isPresented: $isShowingDialog, titleVisibility: .visible) {
+                        // 時間割選択肢
+                        ForEach(schedules, id: \.self) { schedule in
+                            Button(schedule) {
+                                selectedSchedule = schedule
+                            }
+                        }
+
+                        // 新規作成ボタン
+                        Button("新しい時間割を作成", role: .none) {
+                            isShowingTRView.toggle()
+                        }
+
+                        Button("キャンセル", role: .cancel) {
+                            // 何もしない（閉じるだけ）
+                        }
+                    }
                 }
             }
             .fullScreenCover(isPresented: $isShowingTEView) {
@@ -119,6 +144,9 @@ struct HomeView: View {
             }
             .fullScreenCover(isPresented: $isShowingCRView) {
                 ClassRegistrationView(subject: nil, dayOfWeek: $selectedDayOfWeek, period: $selectedPeriod)
+            }
+            .fullScreenCover(isPresented: $isShowingTRView) {
+                TableRegistrationView()
             }
         }
     }

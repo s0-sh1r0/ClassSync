@@ -13,6 +13,8 @@ struct HomeView: View {
     @State private var selectedSchedule = "時間割A"
     @State private var schedules = ["時間割A", "時間割B"]
     
+    @State private var TablePeriod: Int = 6
+    
     var body: some View {
         let weekdays = ["月", "火", "水", "木", "金"]
         
@@ -69,54 +71,57 @@ struct HomeView: View {
                             }
                         }
                         
-                        // 本体：行番号 + 5x6 マス
-                        HStack(spacing: 0) {
-                            // 行番号
-                            VStack(spacing: 0) {
-                                ForEach(1...6, id: \.self) { number in
-                                    VStack {
-                                        Text("00:00")
-                                            .font(.caption)
-                                            .foregroundStyle(Color.white)
-                                        Text("\(number)")
-                                            .bold()
-                                            .foregroundStyle(Color.white)
-                                            .padding(.vertical, 15)
-                                        Text("00:00")
-                                            .font(.caption)
-                                            .foregroundStyle(Color.white)
+                        // 本体：行番号
+                        ScrollView {
+                            HStack(spacing: 0) {
+                                // 行番号
+                                VStack(spacing: 0) {
+                                    ForEach(1...TablePeriod, id: \.self) { number in
+                                        VStack {
+                                            Text("00:00")
+                                                .font(.caption)
+                                                .foregroundStyle(Color.white)
+                                            Text("\(number)")
+                                                .bold()
+                                                .foregroundStyle(Color.white)
+                                                .padding(.vertical, 15)
+                                            Text("00:00")
+                                                .font(.caption)
+                                                .foregroundStyle(Color.white)
+                                        }
+                                        .frame(width: 40, height: verticalLength)
+                                        .border(Color.white)
                                     }
-                                    .frame(width: 40, height: verticalLength)
-                                    .border(Color.white)
                                 }
-                            }
-                            
-                            // マス目
-                            VStack(spacing: 0) {
-                                ForEach(0..<6, id: \.self) { periodIndex in
-                                    HStack(spacing: 0) {
-                                        ForEach(0..<5, id: \.self) { dayIndex in
-                                            let day = weekdays[dayIndex]
-                                            let period = periodIndex + 1
-                                            
-                                            Button {
-                                                selectedDayOfWeek = day
-                                                selectedPeriod = period
+                                
+                                // マス目
+                                VStack(spacing: 0) {
+                                    ForEach(0..<TablePeriod, id: \.self) { periodIndex in
+                                        HStack(spacing: 0) {
+                                            ForEach(0..<5, id: \.self) { dayIndex in
+                                                let day = weekdays[dayIndex]
+                                                let period = periodIndex + 1
                                                 
-                                                isShowingCRView = true
-                                            } label: {
-                                                Rectangle()
-                                                    .fill(Color.white.opacity(0.5))
-                                                    .frame(width: horizontalLength, height: verticalLength)
-                                                    .border(Color.white)
+                                                Button {
+                                                    selectedDayOfWeek = day
+                                                    selectedPeriod = period
+                                                    
+                                                    isShowingCRView = true
+                                                } label: {
+                                                    Rectangle()
+                                                        .fill(Color.white.opacity(0.5))
+                                                        .frame(width: horizontalLength, height: verticalLength)
+                                                        .border(Color.white)
+                                                }
                                             }
                                         }
                                     }
                                 }
+
+
                             }
-
-
                         }
+                        .frame(height: 600)
                     }
                     .frame(width: geometry.size.width * 0.9)
                     .padding(.horizontal, geometry.size.width * 0.05)

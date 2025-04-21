@@ -29,10 +29,15 @@ struct TableWeekendClassView: View {
                     
                     HStack(spacing: 15) {
                         Text("土曜日")
-                        Image(systemName: isSaturdayChecked ? "checkmark.square" : "square")
-                            .onTapGesture {
-                                isSaturdayChecked.toggle()
-                            }
+                        if isSundayChecked {
+                            Image(systemName: "checkmark.square")
+                                .foregroundColor(.white.opacity(0.5))
+                        } else {
+                            Image(systemName: isSaturdayChecked ? "checkmark.square" : "square")
+                                .onTapGesture {
+                                    isSaturdayChecked.toggle()
+                                }
+                        }
 
                         Text("/")
 

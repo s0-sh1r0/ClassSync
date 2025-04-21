@@ -13,15 +13,47 @@ struct HomeView: View {
     @State private var selectedSchedule = "時間割A"
     @State private var schedules = ["時間割A", "時間割B"]
     
-    @State private var TablePeriod: Int = 6
+    @State private var tablePeriod: Int = 6 // 1日の最大授業数
+    @State private var isSaturday: Bool = false // 土曜はあるか
+    @State private var isSunday: Bool = false // 日曜はあるか
+    
+    var numberOfDays: Int { // 授業がある日数
+        if isSunday {
+            return 7
+        } else if isSaturday {
+            return 6
+        } else {
+            return 5
+        }
+    }
     
     var body: some View {
-        let weekdays = ["月", "火", "水", "木", "金"]
+        let weekdays = ["月", "火", "水", "木", "金", "土", "日"]
         
         let weekdayResult = getCurrentWeekday()
         
-        let verticalLength: CGFloat = 100 // テーブル1マスの縦の長さ
-        let horizontalLength: CGFloat = 70 // テーブル1マスの横の長さ
+        var currentWidth: CGFloat {
+            switch numberOfDays {
+            case 6:
+                return 58
+            case 7:
+                return 50
+            default:
+                return 70
+            }
+        }
+        
+        var currentHeight: CGFloat {
+            switch tablePeriod {
+            case 4:
+                return 150
+            case 5:
+                return 120
+            default:
+                return 100
+            }
+        }
+        
         
         NavigationStack {
             ZStack {
@@ -63,10 +95,10 @@ struct HomeView: View {
                         HStack(spacing: 0) {
                             Text("")
                                 .frame(width: 40, height: 30)
-                            ForEach(weekdays, id: \.self) { day in
+                            ForEach(weekdays.prefix(numberOfDays), id: \.self) { day in
                                 Text(day)
                                     .foregroundColor(day == weekdayResult ? .white.opacity(1.0) : .white.opacity(0.7))
-                                    .frame(width: horizontalLength, height: 30)
+                                    .frame(width: currentWidth, height: 30)
                                     .bold()
                             }
                         }
@@ -76,7 +108,7 @@ struct HomeView: View {
                             HStack(spacing: 0) {
                                 // 行番号
                                 VStack(spacing: 0) {
-                                    ForEach(1...TablePeriod, id: \.self) { number in
+                                    ForEach(1...tablePeriod, id: \.self) { number in
                                         VStack {
                                             Text("00:00")
                                                 .font(.caption)
@@ -89,16 +121,16 @@ struct HomeView: View {
                                                 .font(.caption)
                                                 .foregroundStyle(Color.white)
                                         }
-                                        .frame(width: 40, height: verticalLength)
+                                        .frame(width: 40, height: currentHeight)
                                         .border(Color.white)
                                     }
                                 }
                                 
                                 // マス目
                                 VStack(spacing: 0) {
-                                    ForEach(0..<TablePeriod, id: \.self) { periodIndex in
+                                    ForEach(0..<tablePeriod, id: \.self) { periodIndex in
                                         HStack(spacing: 0) {
-                                            ForEach(0..<5, id: \.self) { dayIndex in
+                                            ForEach(0..<numberOfDays, id: \.self) { dayIndex in
                                                 let day = weekdays[dayIndex]
                                                 let period = periodIndex + 1
                                                 
@@ -110,7 +142,7 @@ struct HomeView: View {
                                                 } label: {
                                                     Rectangle()
                                                         .fill(Color.white.opacity(0.5))
-                                                        .frame(width: horizontalLength, height: verticalLength)
+                                                        .frame(width: currentWidth, height: currentHeight)
                                                         .border(Color.white)
                                                 }
                                             }

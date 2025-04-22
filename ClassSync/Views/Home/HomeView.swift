@@ -13,7 +13,7 @@ struct HomeView: View {
     @State private var selectedSchedule = "時間割A"
     @State private var schedules = ["時間割A", "時間割B"]
     
-    @State private var tablePeriod: Int = 6 // 1日の最大授業数
+    @State private var tablePeriod: Int = 5 // 1日の最大授業数
     @State private var isSaturday: Bool = false // 土曜はあるか
     @State private var isSunday: Bool = false // 日曜はあるか
     
@@ -140,10 +140,12 @@ struct HomeView: View {
                                                     
                                                     isShowingCRView = true
                                                 } label: {
-                                                    Rectangle()
-                                                        .fill(Color.white.opacity(0.5))
-                                                        .frame(width: currentWidth, height: currentHeight)
-                                                        .border(Color.white)
+                                                    ZStack {
+                                                        Rectangle().fill(Color.white.opacity(0.5))
+                                                            .frame(width: currentWidth, height: currentHeight)
+                                                            .border(Color.white)
+                                                        TableItemView(width: currentWidth, height: currentHeight, color: .blue)
+                                                    }
                                                 }
                                             }
                                         }

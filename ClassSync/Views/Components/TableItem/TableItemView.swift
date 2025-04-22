@@ -3,10 +3,11 @@ import SwiftUI
 struct TableItemView: View {
     let width: CGFloat
     let height: CGFloat
+    let color: Color
 
     var body: some View {
         ZStack {
-            Color(.gray)
+            Color(color)
             
             VStack {
                 Spacer()
@@ -14,21 +15,22 @@ struct TableItemView: View {
                 Spacer()
                 
                 Text("教室名")
-                    .background()
-                    .padding(.bottom)
+                    .foregroundColor(.black)
+                    .font(.footnote)
+                    .padding(.horizontal, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 3)
+                            .fill(Color.white)
+                    )
+                    .padding(.bottom, 4)
             }
         }
         .frame(width: width, height: height)
         .border(Color.white)
-        .overlay (
-            Rectangle()
-                .frame(width: 10)
-                .foregroundColor(.black),
-            alignment: .leading
-        )
+        .cornerRadius(8)
     }
 }
 
 #Preview {
-    TableItemView(width: 70, height: 100)
+    TableItemView(width: 70, height: 100, color: .blue)
 }

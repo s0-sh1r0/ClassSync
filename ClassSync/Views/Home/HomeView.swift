@@ -5,6 +5,7 @@ struct HomeView: View {
     @State private var isShowingTEView: Bool = false // TEView = TableEditView
     @State private var isShowingCRView: Bool = false // CRView = ClassRegistrationView
     @State private var isShowingTRView: Bool = false // TRView = TableRegistrationView
+    @State private var isShowingCDView: Bool = false // CDView = ClassDetailView
     
     @State private var selectedDayOfWeek: String = ""
     @State private var selectedPeriod: Int = 1
@@ -26,6 +27,8 @@ struct HomeView: View {
             return 5
         }
     }
+    
+    @State private var IsRegistered: Bool = true
     
     var body: some View {
         let weekdays = ["月", "火", "水", "木", "金", "土", "日"]
@@ -138,21 +141,24 @@ struct HomeView: View {
                                                     selectedDayOfWeek = day
                                                     selectedPeriod = period
                                                     
-                                                    isShowingCRView = true
+                                                    if IsRegistered {
+                                                        isShowingCDView = true
+                                                    } else {
+                                                        isShowingCRView = true
+                                                    }
                                                 } label: {
                                                     ZStack {
                                                         Rectangle().fill(Color.white.opacity(0.5))
                                                             .frame(width: currentWidth, height: currentHeight)
                                                             .border(Color.white)
-                                                        TableItemView(width: currentWidth, height: currentHeight, color: .blue)
+                                                        
+                                                        TableItemView(width: currentWidth, height: currentHeight, color: .gray)
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
-
-
                             }
                         }
                         .frame(height: 600)
@@ -186,6 +192,9 @@ struct HomeView: View {
             }
             .fullScreenCover(isPresented: $isShowingTRView) {
                 TableRegistrationView()
+            }
+            .fullScreenCover(isPresented: $isShowingCDView) {
+                ClassDetailView(/*subject: .constant("科目名"), dayOfWeek: day, period: period*/)
             }
         }
     }

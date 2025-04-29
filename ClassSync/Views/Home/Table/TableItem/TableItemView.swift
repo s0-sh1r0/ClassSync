@@ -7,7 +7,7 @@ struct TableItemView: View {
 
     var body: some View {
         ZStack {
-            Color(color)
+            Color(color.opacity(0.9))
             
             VStack {
                 Spacer()

@@ -35,8 +35,8 @@ struct ClassDetailView: View {
                             .font(.title2)
                     }
                     
-//                    Text(subject)
-//                        .font(.title2)
+                    Text("◯曜日◯限")
+                        .font(.title2)
                 }
                 
                 HStack(spacing: 0) {
@@ -101,7 +101,7 @@ struct ClassDetailView: View {
                 .font(.title3)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(classColors[selectedColorIndex])
+                        .fill(classColors[selectedColorIndex].opacity(0.9))
                 )
                 
                 VStack(spacing: 14) {

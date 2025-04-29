@@ -1,11 +1,6 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    @Published var isShowingTEView = false // TEView = TableEditView
-    @Published var isShowingCRView = false // CRView = ClassRegistrationView
-    @Published var isShowingTRView = false // TRView = TableRegistrationView
-    @Published var isShowingCDView = false // CDView = ClassDetailView
-    
     @Published var selectedDayOfWeek = "" // マス選択の初期値
     @Published var selectedPeriod = 1 // マス選択の初期値
     
@@ -55,17 +50,6 @@ class HomeViewModel: ObservableObject {
     
     var weekdayResult: String {
         getCurrentWeekday()
-    }
-    
-    func handleTableSelection(day: String, period: Int) {
-        selectedDayOfWeek = day
-        selectedPeriod = period
-        
-        if isRegistered {
-            isShowingCDView = true
-        } else {
-            isShowingCRView = true
-        }
     }
 }
 

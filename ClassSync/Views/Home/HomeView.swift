@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var showingModel = ShowingViewModel()
     
     var body: some View {
         NavigationStack {
@@ -31,7 +32,7 @@ struct HomeView: View {
 
                         // 新規作成ボタン
                         Button("新しい時間割を作成", role: .none) {
-                            viewModel.isShowingTRView.toggle()
+                            showingModel.isShowingTRView.toggle()
                         }
 
                         Button("キャンセル", role: .cancel) {
@@ -40,16 +41,16 @@ struct HomeView: View {
                     }
                 }
             }
-            .fullScreenCover(isPresented: $viewModel.isShowingTEView) {
+            .fullScreenCover(isPresented: $showingModel.isShowingTEView) {
                 TableEditView()
             }
-            .fullScreenCover(isPresented: $viewModel.isShowingCRView) {
+            .fullScreenCover(isPresented: $showingModel.isShowingCRView) {
                 ClassRegistrationView(subject: nil, dayOfWeek: $viewModel.selectedDayOfWeek, period: $viewModel.selectedPeriod)
             }
-            .fullScreenCover(isPresented: $viewModel.isShowingTRView) {
+            .fullScreenCover(isPresented: $showingModel.isShowingTRView) {
                 TableRegistrationView()
             }
-            .fullScreenCover(isPresented: $viewModel.isShowingCDView) {
+            .fullScreenCover(isPresented: $showingModel.isShowingCDView) {
                 ClassDetailView(/*subject: .constant("科目名"), dayOfWeek: day, period: period*/)
             }
         }
@@ -89,9 +90,9 @@ struct HomeView: View {
         viewModel.selectedPeriod = period
         
         if viewModel.isRegistered {
-            viewModel.isShowingCDView = true
+            showingModel.isShowingCDView = true
         } else {
-            viewModel.isShowingCRView = true
+            showingModel.isShowingCRView = true
         }
     }
 
@@ -101,7 +102,7 @@ extension HomeView {
     private var HomeTitle: some View {
         HStack {
             Button {
-                viewModel.isShowingTEView.toggle()
+                showingModel.isShowingTEView.toggle()
             } label: {
                 Image(systemName: "gearshape.2.fill")
                     .font(.title)

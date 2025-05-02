@@ -1,6 +1,9 @@
 import SwiftUI
+import CoreData
 
 struct TableRegistrationView: View {
+    @Environment(\.managedObjectContext) var viewContext
+    
     @StateObject private var registrationModel = TableRegistrationViewModel()
     
     @Environment(\.dismiss) var dismiss
@@ -32,7 +35,9 @@ struct TableRegistrationView: View {
                     
                     NumberPicker // 選択
                     
-                    ConfilmButton()
+                    ConfilmButton {
+                        addContent()
+                    }
                     
                     Spacer()
                 }
@@ -40,6 +45,28 @@ struct TableRegistrationView: View {
                 .foregroundStyle(.white)
             }
         }
+    }
+    
+    func addContent() {
+        let newContent = Timetable(context: viewContext)
+        
+        newContent.name = registrationModel.name
+        newContent.isOnSaturday = registrationModel.isSaturdayChecked
+        newContent.isOnSunday = registrationModel.isSundayChecked
+        newContent.maximumNumberOfLessons = Int16(registrationModel.selectedNumber)
+        
+        dismiss()
+        
+        do {
+            try viewContext.save()
+        } catch {
+            fatalError("セーブに失敗")
+        }
+        
+        print("\(registrationModel.name)")
+        print("\(registrationModel.isSaturdayChecked)")
+        print("\(registrationModel.isSundayChecked)")
+        print("\(registrationModel.selectedNumber)")
     }
 }
 

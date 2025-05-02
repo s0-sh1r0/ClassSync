@@ -35,7 +35,3 @@ struct CustomTabView: View {
         .padding(.horizontal)
     }
 }
-
-#Preview {
-    TopView()
-}

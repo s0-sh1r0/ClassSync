@@ -1,6 +1,6 @@
 import CoreData
 
-struct persistencecontroller {
+struct PersistenceController {
     let container: NSPersistentContainer
     
     init() {

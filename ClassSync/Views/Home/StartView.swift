@@ -1,7 +1,7 @@
 import SwiftUI
+import CoreData
 
 struct StartView: View {
-    
     @StateObject private var showingModel = ShowingViewModel()
     
     var body: some View {
